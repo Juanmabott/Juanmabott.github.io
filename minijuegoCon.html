@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing code... -->
+    <link rel="stylesheet" href="style.css">
+    <!-- ...existing code... -->
+</head>
+<body>
+    <!-- ...existing code... -->
+    <div id="game-container"></div>
+    <div id="timer">Tiempo: 10</div>
+    <div id="score">Puntuación: 0</div>
+    <div id="game-over-form">
+        <h2>Tiempo agotado!</h2>
+        <p id="final-score"></p>
+        <button id="retry-button">Retry</button>
+        <button id="menu-button">Volver al menú</button>
+    </div>
+    <script src="base.js"></script>
+    <script>
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <!-- ...existing code... -->
+</body>
+</html>

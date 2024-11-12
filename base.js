@@ -32,9 +32,17 @@ function handlePointClick(color, point) {
 function updateScore() {
     document.getElementById('score').innerText = `Puntuación: ${score}`;
     if (score < 0) {
-        alert('Concentración perdida!');
-        resetGame();
+        showGameOverForm('Concentración perdida!');
     }
+}
+
+function showGameOverForm(message) {
+    clearInterval(timerInterval);
+    document.getElementById('final-score').innerText = `Puntuación: ${score}`;
+    document.getElementById('game-container').style.display = 'none';
+    document.getElementById('timer').style.display = 'none';
+    document.getElementById('score').style.display = 'none';
+    document.getElementById('game-over-form').style.display = 'block';
 }
 
 function spawnPoints() {
@@ -63,16 +71,18 @@ function spawnPoints() {
 
 function resetGame() {
     topScores.push(score);
-    topScores.sort((a, b) => a - b);
-    topScores = topScores.slice(-5); // Keep only the top 5 scores
-    alert(`Top Scores: ${topScores.join(', ')}`);
+    topScores.sort((a, b) => b - a);
+    topScores = topScores.slice(0, 5); // Keep only the top 5 scores
     score = 0;
     blackCount = 0;
     redCount = 0;
     timer = 10;
     updateScore();
     document.getElementById('game-container').innerHTML = '';
-    clearInterval(timerInterval);
+    document.getElementById('game-container').style.display = 'block';
+    document.getElementById('timer').style.display = 'block';
+    document.getElementById('score').style.display = 'block';
+    document.getElementById('game-over-form').style.display = 'none';
     startTimer();
 }
 
@@ -81,11 +91,17 @@ function startTimer() {
         timer--;
         document.getElementById('timer').innerText = `Tiempo: ${timer}`;
         if (timer <= 0) {
-            alert('Tiempo agotado!');
-            resetGame();
+            showGameOverForm('Tiempo agotado!');
         }
     }, 1000);
 }
+
+document.getElementById('retry-button').addEventListener('click', resetGame);
+document.getElementById('menu-button').addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
+
+document.getElementById('game-over-form').style.display = 'none'; // Ensure game over form is hidden initially
 
 setInterval(spawnPoints, 1000);
 startTimer();
