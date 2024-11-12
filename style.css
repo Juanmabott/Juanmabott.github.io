@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Star Jedi';
+    src: url('fonts/starjedi/Starjedi.ttf') format('truetype');
+}
+
+body {
+    background-color: gray;
+    font-family: 'Star Jedi';
+}
+
 .point {
     width: 20px;
     height: 20px;
@@ -15,4 +25,35 @@
 
 .black {
     background-color: black;
+}
+
+#game-container {
+    width: 900px;
+    height: 900px;
+    position: relative;
+    border: 1px solid #000;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    border: 10px solid blue;
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: rgb(255, 251, 0); /* Changed text color to white */
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Added black outline */
+    font-family: 'Star Jedi';
+}
+
+#timer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    color: rgb(255, 251, 0);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-family: 'Star Jedi';
 }

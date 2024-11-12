@@ -1,6 +1,9 @@
 let score = 0;
 let blackCount = 0;
 let redCount = 0;
+let topScores = [];
+let timer = 10;
+let timerInterval;
 
 function createPoint(color) {
     const point = document.createElement('div');
@@ -14,6 +17,7 @@ function createPoint(color) {
 function handlePointClick(color, point) {
     if (color === 'blue') {
         score += 10;
+        timer += 1; // Add 1 second for each blue point clicked
     } else if (color === 'red') {
         score -= 20;
         redCount--;
@@ -26,11 +30,8 @@ function handlePointClick(color, point) {
 }
 
 function updateScore() {
-    document.getElementById('score').innerText = `Score: ${score}`;
-    if (score >= 100) {
-        alert('Concentrado');
-        resetGame();
-    } else if (score < 0) {
+    document.getElementById('score').innerText = `Puntuación: ${score}`;
+    if (score < 0) {
         alert('Concentración perdida!');
         resetGame();
     }
@@ -61,11 +62,30 @@ function spawnPoints() {
 }
 
 function resetGame() {
+    topScores.push(score);
+    topScores.sort((a, b) => a - b);
+    topScores = topScores.slice(-5); // Keep only the top 5 scores
+    alert(`Top Scores: ${topScores.join(', ')}`);
     score = 0;
     blackCount = 0;
     redCount = 0;
+    timer = 10;
     updateScore();
     document.getElementById('game-container').innerHTML = '';
+    clearInterval(timerInterval);
+    startTimer();
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timer--;
+        document.getElementById('timer').innerText = `Tiempo: ${timer}`;
+        if (timer <= 0) {
+            alert('Tiempo agotado!');
+            resetGame();
+        }
+    }, 1000);
 }
 
 setInterval(spawnPoints, 1000);
+startTimer();
